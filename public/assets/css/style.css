@@ -2,10 +2,12 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  background: maroon;
 }
 
-.save-note {
-  display: none;
+.container-fluid {
+  background: white;
+  border-bottom: 10px solid gold;
 }
 
 .icons i {
@@ -16,55 +18,98 @@ html, body {
 }
 
 .note-textarea, .note-title {
-  color: #000000;
+  /* color: #000000; */
+  color: maroon;
   width: 100%;
   outline: none;
   border: none;
 }
 
 .note-textarea {
+  color: black;
+}
+
+.note-textarea {
   resize: none;
-  height: calc(100% - 63px);
   padding-top: 15px;
 }
 
 .note-title {
-  height: 50px;
+  height: 60px;
   margin-top: 13px;
   font-size: 3rem;
 }
 
 .note-title:read-only, .note-textarea:read-only {
-  color: #757575;
+  color: #2e2929;
 }
 
-.list-container .card {
-  height: calc(100vh - 70px);
+.col-4 .card {
   border-bottom: none;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
 }
 
-.list-container {
+.col-4 {
   padding-left: 0;
 }
 
-.list-container .list-group,
-.list-container .list-group-item:first-child,
-.list-container .card {
+.col-4 .list-group,
+.col-4 .list-group-item,
+.col-4 .card,
+.col-4 .card-body {
   border-top: none;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
+  border-bottom: none;
 }
 
-.list-container i {
+.col-4 i {
   font-size: 1.1rem;
-  cursor: pointer;
 }
 
-.list-container .list-group-item {
+.col-4 .list-group-item {
   border-left: none;
   border-right: none;
-  padding: 20px;
-  cursor: pointer;
+  margin: 0;
+  margin-bottom: 10px;
+  border-radius: 0;
+}
+
+.list-group-item:hover {
+ outline: 6px solid maroon;
+}
+
+.list-group-item:last-child, p:last-child {
+  padding-bottom: 10px;
+  margin-bottom: 0;
+}
+
+/* --------------- */
+.navbar {
+  background: maroon;
+  border-bottom: 10px solid gold;
+}
+
+.navbar a {
+  color: white;
+}
+.card-body {
+  padding: 0;
+  background: gold;
+}
+
+.card, .card-body {
+  border-radius: 0;
+  border-right: 5px solid gold;
+  border-left: 5px solid gold;
+}
+
+.list-group-item:hover, .list-group-item:focus {
+  z-index: 0;
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+hr {
+  margin: 8px 0;
 }

@@ -11,4 +11,4 @@ VALUES
 INSERT INTO notes 
   (currentDateTime, title, note)
 VALUES 
-  ('11/1/2018 10:53 AM', 'Third Note!', 'The quick brown cat jumped over the lazy bigger cat.');
+  ('11/1/2018 10:53 AM', 'Third Note!', 'The quick brown cat jumped over the lazy cat.');

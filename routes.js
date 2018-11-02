@@ -4,20 +4,33 @@ var path = require("path");
 
 
 // API ROUTES
-router.get("/api/notes", function(req, res) {
- db.query("SELECT * FROM notes", function(err, dbTables) {
-   if (err) throw err;
-   res.json(dbTables);
- });
+router.get("/api/notes", function (req, res) {
+  db.query("SELECT * FROM notes", function (err, result) {
+    if (err) throw err;
+    res.json(result);
+  });
+});
+
+
+router.post("/api/notes", function (req, res) {
+  console.log(req.body)
+  db.query("INSERT INTO notes SET ?", req.body, function (err, result) {
+    
+    
+    if (err) throw err;
+
+    res.json(result);
+  });
+
 });
 
 
 // HTML ROUTES
-router.get("/notes", function(req, res) {
+router.get("/notes", function (req, res) {
   res.sendFile(path.join(__dirname, "public/notes.html"));
 });
 
-router.get("*", function(req, res) {
+router.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "public/index.html"));
 });
 
