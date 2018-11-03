@@ -24,6 +24,14 @@ router.post("/api/notes", function (req, res) {
 
 });
 
+router.delete("/api/notes", function (req, res) {
+  console.log(req.body)
+  db.query("DELETE FROM notes WHERE id = ?", req.body.id, function(err, result) {
+    if (err) throw err;
+    res.json(result)
+  });
+});
+
 
 // HTML ROUTES
 router.get("/notes", function (req, res) {

@@ -3,25 +3,38 @@ var $waitList = $("#waitList");
 var $clearBtn = $("#clear");
 
 
-$listItem = $(".list-group")
 
-$listItem.on("click", ".list-group-item", function () {
+$(document).on("click", ".list-group-item", function (event) {
+  event.preventDefault();
+  $(".saved").css("visibility", "hidden") 
   $(".save-note").attr("can-save", false);
   const noteData = $(this).data();
-  console.log(noteData)
   $(".note-title").val(noteData.title).attr("readonly", true)
   $(".note-textarea").val(noteData.note).attr("readonly", true)
 })
 
-$(".new-note").on("click", function () {
+$(".new-note").on("click", function() {
+  $(".saved").css("visibility", "hidden") 
   $(".save-note").attr("can-save", true);
   $(".note-title").attr("readonly", false).val("");
   $(".note-textarea").attr("readonly", false).val("");
 })
 
+$(document).on("click", ".delete-note", function (event) {
+  $(".saved").css("visibility", "hidden") 
+  // console.log()
+  $.ajax({
+    url: "/api/notes",
+    method: "DELETE",
+    data: $(this).parent().parent().data()
+  }).then(function() {});
+  runTableQuery();
+  $(this).parent().parent().remove();
+})
 
 
-$(".save-note").on("click", function () {
+$(document).on("click", ".save-note", function(event) {
+  event.preventDefault(); 
   if ($(".save-note").attr("can-save") === "true") {
   const note = {
     currentDateTime: "Your Mother",
@@ -30,10 +43,9 @@ $(".save-note").on("click", function () {
   };
 
   if ((note.title === "") || (note.note === "")) {
-    console.log("Eat ass")
     return;
   } else {
-    console.log("Good!")
+    $(".saved").css("visibility", "visible")
     $(".save-note").attr("can-save", false);
     $.ajax({
       url: "/api/notes",
@@ -45,23 +57,12 @@ $(".save-note").on("click", function () {
     $tableList.empty();
     $(".note-title").val(note.title).attr("readonly", true);
     $(".note-textarea").val(note.note).attr("readonly", true);
-
-
-
-      //set title and notes back to read only
-      //make it as if you clicked the last saved note to view
-
-
-      //render new note pane
+  
 
       runTableQuery();
     }
   }
 })
-
-const viewNote = () => {
-  const quote = $(this).parents(".list-group-item").data();
-}
 
 
 var runTableQuery = function () {
@@ -75,11 +76,26 @@ var runTableQuery = function () {
 
       $deleteButton = $("<i class='fas fa-trash-alt float-right text-danger delete-note'></i>")
 
+      let $title;
+      let $note;
+
+      if (tableData[i].title.length > 20) {
+        $title = $("<h4>").text(`${tableData[i].title.slice(0, 20)}...`)
+      } else {
+        $title = $("<h4>").text(`${tableData[i].title}`)
+      }
+      if (tableData[i].note.length > 35) {
+        $note = $("<p>").text(`${tableData[i].note.slice(0, 35)}...`)
+      } else {
+        $note = $("<p>").text(`${tableData[i].note}`)
+      }
+
+
       $listItem.append(
         $("<p>").text(`${i + 1} | ${tableData[i].currentDateTime}`).append($deleteButton).css('font-weight', 'bold'),
         $("<hr>"),
-        $("<h4>").text("Title: " + tableData[i].title),
-        $("<p>").text("Note: " + tableData[i].note),
+        $title, 
+        $note
       );
 
       $tableList.append($listItem);

@@ -7,6 +7,6 @@ CREATE TABLE notes
   id INT NOT NULL AUTO_INCREMENT,
   currentDateTime VARCHAR (100) NOT NULL,
   title VARCHAR (100) NOT NULL,
-  note VARCHAR (500) NOT NULL,
+  note TEXT NOT NULL,
   PRIMARY KEY(id)
 );
