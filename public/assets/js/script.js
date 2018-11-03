@@ -22,7 +22,6 @@ $(".new-note").on("click", function() {
 
 $(document).on("click", ".delete-note", function (event) {
   $(".saved").css("visibility", "hidden") 
-  // console.log()
   $.ajax({
     url: "/api/notes",
     method: "DELETE",
@@ -35,9 +34,12 @@ $(document).on("click", ".delete-note", function (event) {
 
 $(document).on("click", ".save-note", function(event) {
   event.preventDefault(); 
+  // 11/1/2018 10:52 AM
+  const timeStamp = moment().format("MM/DD/YYYY h:mma");
+
   if ($(".save-note").attr("can-save") === "true") {
   const note = {
-    currentDateTime: "Your Mother",
+    currentDateTime: timeStamp,
     title: $(".note-title").val(),
     note: $(".note-textarea").val()
   };
@@ -70,6 +72,10 @@ var runTableQuery = function () {
     url: "/api/notes",
     method: "GET"
   }).then(function (tableData) {
+    
+    if (tableData.length === 0) {
+      $tableList.append($("<li class='list-group-item'>").append("<h2>").text("Add a new entry!"))
+    } else {
     // Loop through and display each of the customers
     for (var i = 0; i < tableData.length; i++) {
       var $listItem = $("<li class='list-group-item'>").data(tableData[i]);
@@ -100,6 +106,7 @@ var runTableQuery = function () {
 
       $tableList.append($listItem);
     }
+  }
   });
 };
 

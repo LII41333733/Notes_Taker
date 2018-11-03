@@ -3,12 +3,14 @@ html, body {
   margin: 0;
   padding: 0;
   background: maroon;
+  box-sizing: border-box;
 }
 
 .container-fluid {
   background: white;
   border-bottom: 10px solid gold;
   padding: 0;
+  height: 600px;
 }
 
 .icons i {
@@ -29,7 +31,7 @@ html, body {
   color: #882929b0;
   resize: none;
   padding-top: 15px;
-  height: 500px;
+  height: 375px;
   font-size: 1.5rem;
 }
 
@@ -41,13 +43,14 @@ html, body {
 
 .left-container {
   min-width: 400px;
-  height: auto;
+  height: 100%;
   border-top: none;
   border-bottom: none;
   background: gold;
   padding: 0;
-  border-right: 10px solid gold;
-  border-left: 10px solid gold;
+  border-right: 5px solid gold;
+  /* border-left: 10px solid gold; */
+  overflow: scroll;
 }
 
 i {
@@ -60,11 +63,12 @@ i {
   margin: 0;
   margin-bottom: 10px;
   border-radius: 0 !important;
-  width: 100%;
+  width: 99%;
 }
 
 .list-group-item:hover {
- outline: 5px solid maroon;
+ /* border-right: 5px solid maroon; */
+ box-shadow: 5px 5px 0px 0px maroon;
 }
 
 .list-group-item:last-child, p:last-child {
@@ -126,3 +130,8 @@ hr {
   visibility: hidden;
 }
 
+.jumbotron {
+  outline: 10px solid gold;
+  background: white;
+  border-radius: 0;
+}
