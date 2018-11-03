@@ -3,7 +3,6 @@ var $waitList = $("#waitList");
 var $clearBtn = $("#clear");
 
 
-
 $(document).on("click", ".list-group-item", function (event) {
   event.preventDefault();
   $(".saved").css("visibility", "hidden") 
@@ -21,20 +20,28 @@ $(".new-note").on("click", function() {
 })
 
 $(document).on("click", ".delete-note", function (event) {
-  $(".saved").css("visibility", "hidden") 
+
+  const that = $(this).parent().parent();
+  
   $.ajax({
     url: "/api/notes",
     method: "DELETE",
     data: $(this).parent().parent().data()
-  }).then(function() {});
-  runTableQuery();
-  $(this).parent().parent().remove();
+  }).then(function() {
+    $(that).remove();
+
+    $(".saved").css("visibility", "hidden") 
+    $(".note-title").attr("readonly", false).val("");
+    $(".note-textarea").attr("readonly", false).val("");
+    $(".save-note").attr("can-save", "true");
+    runTableQuery();
+  });
 })
 
 
 $(document).on("click", ".save-note", function(event) {
   event.preventDefault(); 
-  // 11/1/2018 10:52 AM
+
   const timeStamp = moment().format("MM/DD/YYYY h:mma");
 
   if ($(".save-note").attr("can-save") === "true") {
@@ -68,11 +75,12 @@ $(document).on("click", ".save-note", function(event) {
 
 
 var runTableQuery = function () {
+  $(".list-group").empty();
   $.ajax({
     url: "/api/notes",
     method: "GET"
   }).then(function (tableData) {
-    
+    console.log(tableData.length)
     if (tableData.length === 0) {
       $tableList.append($("<li class='list-group-item'>").append("<h2>").text("Add a new entry!"))
     } else {
@@ -107,7 +115,7 @@ var runTableQuery = function () {
       $tableList.append($listItem);
     }
   }
-  });
+});
 };
 
 runTableQuery();

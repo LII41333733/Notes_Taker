@@ -4,6 +4,7 @@ html, body {
   padding: 0;
   background: maroon;
   box-sizing: border-box;
+  overflow-y:scroll;
 }
 
 .container-fluid {
@@ -50,7 +51,7 @@ html, body {
   padding: 0;
   border-right: 4px solid gold;
   /* border-left: 5px solid gold; */
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 i {
@@ -64,6 +65,8 @@ i {
   margin-bottom: 8px;
   border-radius: 0 !important;
   width: 99%;
+  border: 2px solid black;
+  border-left: none;
 }
 
 .list-group-item:hover {
